@@ -17,7 +17,7 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 
 const ProductScreen = props => {
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState(1);
 
   const dispatch = useDispatch();
 
@@ -29,8 +29,8 @@ const ProductScreen = props => {
   }, [dispatch, props.match]);
 
   const addToCartHandler = () => {
-    props.hitory.push(`/cart/${props.match.id}?qty=${qty}`);
-  };
+    props.history.push(`/cart/${props.match.params.id}?qty=${qty}`)
+  }
 
   return (
     <>
