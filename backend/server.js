@@ -1,9 +1,10 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const bodyParser = require('body-parser')
+const bodyParser = require("body-parser");
 const mongoDb = require("./config/db");
 const colors = require("colors");
 const product = require("./routes/product");
+const user = require("./routes/users");
 
 const { errorHandler, notFound } = require("./midleware/errorMidleware");
 
@@ -12,16 +13,16 @@ dotenv.config();
 mongoDb();
 
 const app = express();
-app.use(bodyParser());
+app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("API runing");
+  res.send("API runing...");
 });
 
 app.use("/api/products", product);
+app.use("/api/users", user);
 
 app.use(notFound);
-
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
