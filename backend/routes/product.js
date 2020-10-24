@@ -2,7 +2,7 @@ const express = require("express");
 const AsyncHandler = require("express-async-handler");
 const router = express.Router();
 const Product = require("../models/Product");
-
+const Order = require("../models/Order");
 
 //@description Fetch all products
 //@rotes GET /api/products
@@ -25,8 +25,8 @@ router.get(
     if (product) {
       res.json(product);
     } else {
-      res.status(404)
-      throw new Error('Product not found')
+      res.status(404);
+      throw new Error("Product not found");
     }
   })
 );

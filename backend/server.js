@@ -5,6 +5,7 @@ const mongoDb = require("./config/db");
 const colors = require("colors");
 const product = require("./routes/product");
 const user = require("./routes/users");
+const order = require("./routes/orders");
 
 const { errorHandler, notFound } = require("./midleware/errorMidleware");
 
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/products", product);
 app.use("/api/users", user);
+app.use("/api/orders", order);
 
 app.use(notFound);
 app.use(errorHandler);

@@ -37,7 +37,7 @@ const PaymentScreen = (props) => {
               id="PayPal"
               name="paymentMethod"
               value="PayPal"
-              checked
+              
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></Form.Check>
            {/*  <Form.Check

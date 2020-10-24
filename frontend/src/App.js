@@ -12,6 +12,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import ShippingScreen from "./screens/ShippingScreen";
 import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+import OrderScreen from "./screens/OrderScreen";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route exact path='/shipping' component={ShippingScreen} />
           <Route exact path='/payment' component={PaymentScreen} />
           <Route exact path='/placeorder' component={PlaceOrderScreen} />
+          <Route exact path='/order/:id' component={OrderScreen} />
           <Route exact path="/product/:id" component={ProductScreen} />
           <Route exact path="/cart/:id?" component={CartScreen} /> {/* ? na kraju id je da je id optional jer ne mora da ima id da bi otisli na cart */}
         </Container>
