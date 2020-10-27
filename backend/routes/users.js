@@ -5,18 +5,6 @@ const User = require("../models/User");
 const { generateToken } = require("../utils/generateToken");
 const { protect, admin } = require("../midleware/authMidleware");
 
-//@description Get all users
-//@rotes GET api/users/
-router.get(
-  "/",
-  protect,
-  admin,
-  AsyncHandler(async (req, res) => {
-    const users = await User.find({});
-    res.json(users);
-  })
-);
-
 //@description Auth user and get token
 //@rotes POST api/users/login
 router.post(
@@ -117,6 +105,85 @@ router.put(
         name: updatedUser.name,
         email: updatedUser.email,
         token: generateToken(updatedUser._id),
+        isAdmin: updatedUser.isAdmin,
+      });
+    } else {
+      res.status(404);
+      throw new Error("User not found");
+    }
+  })
+);
+
+//@description Get all users
+//@rotes GET api/users/
+router.get(
+  "/",
+  protect,
+  admin,
+  AsyncHandler(async (req, res) => {
+    const users = await User.find({});
+    res.json(users);
+  })
+);
+
+//@description Delete user
+//@rotes DELETE api/users/:id
+router.delete(
+  "/:id",
+  protect,
+  admin,
+  AsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+
+    if (user) {
+      await user.remove();
+      res.json({ message: "User removed" });
+    } else {
+      res.status(404);
+      throw new Error("User not found");
+    }
+  })
+);
+
+//@description Get user by id
+//@rotes GET api/users/:id
+router.get(
+  "/:id",
+  protect,
+  admin,
+  AsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id).select(
+      "-password"
+    );
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404);
+      throw new Error("User not found");
+    }
+  })
+);
+
+//@description Update user
+//@rotes PUT api/users/id
+router.put(
+  "/:id",
+  protect,
+  admin,
+  AsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      user.isAdmin = req.body.isAdmin || user.isAdmin; 
+      //user.isAdmin = req.body.isAdmin; 
+
+      const updatedUser = await user.save();
+      res.json({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
         isAdmin: updatedUser.isAdmin,
       });
     } else {

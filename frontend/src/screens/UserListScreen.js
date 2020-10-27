@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FormContainer from "../components/FormContainer";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import { listUsers } from "../actions/userAction";
+import { listUsers, deleteUser } from "../actions/userAction";
 
 const UserListScreen = (props) => {
   const dispatch = useDispatch();
@@ -16,16 +16,22 @@ const UserListScreen = (props) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const userDelete = useSelector((state) => state.userDelete);
+  const { success: successDelete } = userDelete;
+
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
       dispatch(listUsers());
     } else {
       props.history.push("/login");
     }
-  }, [dispatch, props.history]);
+  }, [dispatch, props.history, successDelete, userInfo]);
 
   const deleteHandler = (id) => {
-    console.log(id);
+    //console.log(id);
+    if (window.confirm("Are you shore")) {
+      dispatch(deleteUser(id));
+    }
   };
 
   return (
@@ -62,7 +68,7 @@ const UserListScreen = (props) => {
                   )}
                 </td>
                 <td>
-                  <LinkContainer to={`/user/${user._id}/edit`}>
+                  <LinkContainer to={`/admin/user/${user._id}/edit`}>
                     <Button variant="light" className="btn-sm">
                       <i className="fas fa-edit" />
                     </Button>
