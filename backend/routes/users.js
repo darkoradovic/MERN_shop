@@ -3,7 +3,19 @@ const AsyncHandler = require("express-async-handler");
 const router = express.Router();
 const User = require("../models/User");
 const { generateToken } = require("../utils/generateToken");
-const { protect } = require("../midleware/authMidleware");
+const { protect, admin } = require("../midleware/authMidleware");
+
+//@description Get all users
+//@rotes GET api/users/
+router.get(
+  "/",
+  protect,
+  admin,
+  AsyncHandler(async (req, res) => {
+    const users = await User.find({});
+    res.json(users);
+  })
+);
 
 //@description Auth user and get token
 //@rotes POST api/users/login
@@ -19,7 +31,7 @@ router.post(
         name: user.name,
         email: user.email,
         token: generateToken(user._id),
-        isAdmin: user.isAdmin
+        isAdmin: user.isAdmin,
       });
     } else {
       res.status(401);
@@ -44,7 +56,7 @@ router.post(
     const user = await User.create({
       name,
       email,
-      password
+      password,
     });
 
     if (user) {
@@ -53,7 +65,7 @@ router.post(
         name: user.name,
         email: user.email,
         token: generateToken(user._id),
-        isAdmin: user.isAdmin
+        isAdmin: user.isAdmin,
       });
     } else {
       res.status(400);
@@ -75,7 +87,7 @@ router.get(
         _id: user._id,
         name: user.name,
         email: user.email,
-        isAdmin: user.isAdmin
+        isAdmin: user.isAdmin,
       });
     } else {
       res.status(404);
@@ -105,7 +117,7 @@ router.put(
         name: updatedUser.name,
         email: updatedUser.email,
         token: generateToken(updatedUser._id),
-        isAdmin: updatedUser.isAdmin
+        isAdmin: updatedUser.isAdmin,
       });
     } else {
       res.status(404);
