@@ -116,6 +116,7 @@ router.put(
 
 //@description Get all users
 //@rotes GET api/users/
+//Admin
 router.get(
   "/",
   protect,
@@ -128,6 +129,7 @@ router.get(
 
 //@description Delete user
 //@rotes DELETE api/users/:id
+//Admin
 router.delete(
   "/:id",
   protect,
@@ -147,6 +149,7 @@ router.delete(
 
 //@description Get user by id
 //@rotes GET api/users/:id
+//Admin
 router.get(
   "/:id",
   protect,
@@ -166,6 +169,7 @@ router.get(
 
 //@description Update user
 //@rotes PUT api/users/id
+//Admin
 router.put(
   "/:id",
   protect,
@@ -176,8 +180,8 @@ router.put(
     if (user) {
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
-      user.isAdmin = req.body.isAdmin || user.isAdmin; 
-      //user.isAdmin = req.body.isAdmin; 
+      //user.isAdmin = req.body.isAdmin || user.isAdmin; 
+      user.isAdmin = req.body.isAdmin; 
 
       const updatedUser = await user.save();
       res.json({

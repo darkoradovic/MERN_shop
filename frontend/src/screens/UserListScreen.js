@@ -29,7 +29,7 @@ const UserListScreen = (props) => {
 
   const deleteHandler = (id) => {
     //console.log(id);
-    if (window.confirm("Are you shore")) {
+    if (window.confirm("Are you sure")) {
       dispatch(deleteUser(id));
     }
   };

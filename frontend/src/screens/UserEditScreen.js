@@ -22,9 +22,6 @@ const UserEditScreen = (props) => {
   const userUpdate = useSelector((state) => state.userUpdate);
   const { loading: loadingUpdate, error: errorUpdate, success } = userUpdate;
 
-  const redirect = props.location.search
-    ? props.location.search.split("=")[1]
-    : "/";
 
   useEffect(() => {
     if (success) {
