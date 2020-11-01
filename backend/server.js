@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const mongoDb = require("./config/db");
@@ -6,6 +7,7 @@ const colors = require("colors");
 const product = require("./routes/product");
 const user = require("./routes/users");
 const order = require("./routes/orders");
+const uploads = require("./routes/uploads");
 
 const { errorHandler, notFound } = require("./midleware/errorMidleware");
 
@@ -23,10 +25,14 @@ app.get("/", (req, res) => {
 app.use("/api/products", product);
 app.use("/api/users", user);
 app.use("/api/orders", order);
+app.use("/api/upload", uploads);
 
-app.get('/api/config/paypal', (req,res) => {
-  return res.send(process.env.PAYPAL_CLIENT_ID)
-})
+app.get("/api/config/paypal", (req, res) => {
+  return res.send(process.env.PAYPAL_CLIENT_ID);
+});
+
+//const __dirname = path.resolve()
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 app.use(notFound);
 app.use(errorHandler);

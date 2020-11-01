@@ -2,7 +2,7 @@ const express = require("express");
 const AsyncHandler = require("express-async-handler");
 const router = express.Router();
 const Order = require("../models/Order");
-const { protect } = require("../midleware/authMidleware");
+const { protect, admin } = require("../midleware/authMidleware");
 
 //@description Create new order
 //@rotes POST /api/orders
@@ -49,6 +49,18 @@ router.get(
   protect,
   AsyncHandler(async (req, res) => {
     const orders = await Order.find({ user: req.user._id });
+    res.json(orders);
+  })
+);
+
+//@description Get all orders
+//@rotes GET /api/orders
+router.get(
+  "/",
+  protect,
+  admin,
+  AsyncHandler(async (req, res) => {
+    const orders = await Order.find({}).populate("user", "id name");
     res.json(orders);
   })
 );
@@ -100,6 +112,26 @@ router.put(
   })
 );
 
+//@description Update order to delivered
+//@rotes PUT /api/orders/:id/deliver
+router.put(
+  "/:id/deliver",
+  protect,
+  admin,
+  AsyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id);
 
+    if (order) {
+      order.isDelivered = true;
+      order.deliveredAt = Date.now();
+
+      const updatedOrder = await order.save();
+      res.json(updatedOrder);
+    } else {
+      res.status(404);
+      throw new Error("Order not found");
+    }
+  })
+);
 
 module.exports = router;
