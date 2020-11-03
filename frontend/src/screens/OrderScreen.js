@@ -66,6 +66,9 @@ const OrderScreen = (props) => {
   }
 
   useEffect(() => {
+    if(!userInfo){
+      props.history.push('/login')
+    }
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get("/api/config/paypal");
       const script = document.createElement("script");
@@ -89,7 +92,7 @@ const OrderScreen = (props) => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, order, orderId, successPay, successDeliver]);
+  }, [dispatch, order, orderId, successPay, successDeliver,props.history]);
 
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);

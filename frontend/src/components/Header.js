@@ -1,8 +1,10 @@
 import React from "react";
+import { Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { logout } from "../actions/userAction";
+import SearchBox from "./SearchBox";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -33,6 +35,9 @@ const Header = () => {
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
+          <Route render={({ history }) => <SearchBox history={history} />} />
+           {/*  Koristimo Route jer nemamo pristup history u headeru, tj u
+            searchbox komponenti */}
             <Nav className="ml-auto">
               <LinkContainer to="/cart">
                 <Nav.Link>
@@ -41,7 +46,10 @@ const Header = () => {
               </LinkContainer>
               {userInfo ? (
                 <>
-                  <NavDropdown title={userInfo.name} id="username">
+                  <NavDropdown
+                    title={userInfo.name.split(" ")[0]}
+                    id="username"
+                  >
                     <LinkContainer to="/profile">
                       <NavDropdown.Item>Profile</NavDropdown.Item>
                     </LinkContainer>

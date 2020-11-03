@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
+const morgan = require("morgan");
 const mongoDb = require("./config/db");
 const colors = require("colors");
 const product = require("./routes/product");
@@ -16,6 +17,11 @@ dotenv.config();
 mongoDb();
 
 const app = express();
+
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
