@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  Form,
   Button,
   Image,
   Row,
@@ -12,7 +11,6 @@ import {
 import { PayPalButton } from "react-paypal-button-v2";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { saveShippingAddress } from "../actions/cartActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import {
@@ -92,7 +90,7 @@ const OrderScreen = (props) => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, order, orderId, successPay, successDeliver,props.history]);
+  }, [dispatch, userInfo ,order, orderId, successPay, successDeliver,props.history]);
 
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);

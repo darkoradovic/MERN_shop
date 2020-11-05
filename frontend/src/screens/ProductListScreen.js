@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { LinkContainer } from "react-router-bootstrap";
-import { Form, Button, Row, Col, Table } from "react-bootstrap";
+import {  Button, Row, Col, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import FormContainer from "../components/FormContainer";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
+import Paginate from '../components/Paginate'
 import {
   listProducts,
   deleteProduct,
@@ -129,7 +129,7 @@ const ProductListScreen = ({ history, match }) => {
               ))}
             </tbody>
           </Table>
-          {/* <Paginate pages={pages} page={page} isAdmin={true} /> */}
+           <Paginate pages={pages} page={page} isAdmin={true} /> 
         </>
       )}
     </>

@@ -7,7 +7,7 @@ const mongoDB = async () => {
       useCreateIndex: true,
       useUnifiedTopology: true
     });
-    console.log(`MngoDB connected: ${conection.connection.host}`.cyan.underline);
+    console.log(`MongoDB connected: ${conection.connection.host}`.cyan.underline);
   } catch (error) {
     console.error(`Error: ${error.message}`.red.underline.bold);
     process.exit(1);

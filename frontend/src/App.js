@@ -1,9 +1,8 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import { Route, Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import SearchBox from "./components/SearchBox";
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import CartScreen from "./screens/CartScreen";
@@ -37,10 +36,13 @@ function App() {
           <Route exact path='/admin/userlist' component={UserListScreen} />
           <Route exact path='/admin/user/:id/edit' component={userEditScreen} />
           <Route exact path='/admin/productlist' component={ProductListScreen} />
+          <Route exact path='/admin/productlist/:pageNumber' component={ProductListScreen} />
           <Route exact path="/product/:id" component={ProductScreen} />
           <Route exact path="/admin/product/:id/edit" component={ProductEditScreen} />
           <Route exact path="/cart/:id?" component={CartScreen} /> {/* ? na kraju id je da je id optional jer ne mora da ima id da bi otisli na cart */}
           <Route exact path="/search/:keyword" component={HomeScreen} />
+          <Route exact path="/page/:pageNumber" component={HomeScreen} />
+          <Route exact path="/search/:keyword/page/:pageNumber" component={HomeScreen} />
           <Route exact path="/" component={HomeScreen} />
         </Container>
       </main>

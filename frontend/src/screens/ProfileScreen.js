@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Form, Button, Row, Col, Table } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,10 +27,6 @@ const ProfileScreen = (props) => {
 
   const orderListMy = useSelector((state) => state.orderListMy);
   const { orders, error: errorOrders, loading: loadingOrders } = orderListMy;
-
-  const redirect = props.location.search
-    ? props.location.search.split("=")[1]
-    : "/";
 
   useEffect(() => {
     if (!userInfo) {
