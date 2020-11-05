@@ -1,9 +1,11 @@
-import React, {  useEffect } from "react";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Container } from "react-bootstrap";
 import { Row, Col } from "react-bootstrap";
 import Product from "../components/Product";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../actions/productActions";
-
+import Meta from "../components/Meta";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import Paginate from "../components/Paginate";
@@ -23,12 +25,20 @@ const HomeScreen = (props) => {
 
   return (
     <>
-    {!keyword && <ProductCarousel /> }
-       <h1>Latest Products</h1>
+      <Meta />
+      {!keyword ? (
+        <ProductCarousel />
+      ) : (
+        <Link to="/" className="btn btn-light">
+          Go Back
+        </Link>
+      )}
+      <Container>
+      <h1>Latest Products</h1>
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>{error}</Message>
+        <Message variant="danger">{error}</Message>
       ) : (
         <>
           <Row>
@@ -41,10 +51,11 @@ const HomeScreen = (props) => {
           <Paginate
             pages={pages}
             page={page}
-            keyword={keyword ? keyword : ''}
+            keyword={keyword ? keyword : ""}
           />
         </>
       )}
+      </Container>
     </>
   );
 };

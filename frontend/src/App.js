@@ -19,7 +19,8 @@ import ProductListScreen from "./screens/ProductListScreen";
 import ProductEditScreen from "./screens/ProductEditScreen";
 import OrderListScreen from "./screens/OrderListScreen";
 
-function App() {
+
+const App = () => {
   return (
     <>
       <Header />
@@ -43,8 +44,9 @@ function App() {
           <Route exact path="/search/:keyword" component={HomeScreen} />
           <Route exact path="/page/:pageNumber" component={HomeScreen} />
           <Route exact path="/search/:keyword/page/:pageNumber" component={HomeScreen} />
-          <Route exact path="/" component={HomeScreen} />
+          
         </Container>
+        <Route exact path="/" component={HomeScreen} />
       </main>
       <Footer />
     </>

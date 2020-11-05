@@ -19,6 +19,7 @@ import {
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants";
+import Meta from "../components/Meta";
 
 const ProductScreen = (props) => {
   const [qty, setQty] = useState(1);
@@ -63,6 +64,7 @@ const ProductScreen = (props) => {
 
   return (
     <>
+    
       <Link to="/" className="btn btn-light my-3">
         Go Back
       </Link>
@@ -72,6 +74,7 @@ const ProductScreen = (props) => {
         <Message variant="danger" />
       ) : (
         <>
+        <Meta title={product.name} />
           <Row>
             <Col md={6}>
               <Image src={product.image} alt="name" fluid />

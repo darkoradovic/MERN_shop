@@ -6,7 +6,7 @@ import Loader from "./Loader";
 import Message from "./Message";
 import { listTopProducts } from "../actions/productActions";
 
-const ProductCarousel = () => {
+const ProductCarousel = ({match}) => {
   const dispatch = useDispatch();
 
   const productTopRated = useSelector((state) => state.productTopRated);
@@ -21,14 +21,14 @@ const ProductCarousel = () => {
   ) : error ? (
     <Message variant="danger">{error}</Message>
   ) : (
-    <Carousel pause="hover" className="bg-dark">
+    <Carousel pause="hover" className="bg-dark" style={{marginTop:"-16px", marginBottom:'20px', height:'500px', borderTop:'3px solid #4bbf73'}}>
       {products.map((product) => (
         <Carousel.Item key={product._id}>
           <Link to={`/product/${product._id}`}>
             <Image src={product.image} alt={product.name} fluid />
             <Carousel.Caption className="carousel-caption">
               <h2>
-                {product.name} (${product.price})
+                {product.name} ${product.price}
               </h2>
             </Carousel.Caption>
           </Link>
